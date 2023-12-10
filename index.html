@@ -1,0 +1,688 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vis-Marathon</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.4.0/nouislider.css" integrity="sha512-DGB74Gyw93qON+V0QxSRs1er6sqoPyFoy23HBL5LN7MRJBcjeCU22zega+vOEGE0XQLoVrv4ExcaesSTwZQA2w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link href="https://cdn.jsdelivr.net/npm/nouislider/distribute/nouislider.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/nouislider/distribute/nouislider.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/leaflet.css">
+    <script src="js/leaflet.js"></script>
+    <script src="js/L.Polyline.SnakeAnim.js"></script>
+
+</head>
+<body>
+
+<!-- WRAPPER -->
+<div class="container-fluid">
+
+    <!-- TITLE SLIDE -->
+    <div class="section" id="titleSection">
+        <div class="background-gif">
+        </div>
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
+                <div class="col text-center">
+                    <h1 class="title-text">VIS - MARATHON</h1>
+                    <h5 class="intro-description">Every year, over 1 million individual runners run a marathon. Marathoners come from all walks of life, from teens to the elderly, beginners to olympians—yet they are unified by a single goal of running 26.2 miles, a physical feat achievable by almost anybody with the heart to do so.</h5>
+                </div>
+            </div>
+            <div class="scroll-text">
+                <p class="text-center">Scroll down to begin!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPULARITY AND FACT VIS -->
+    <div class="section" id="section2">
+        <div class="row justify-content-center">
+            <h3 class="title-text2">Let's start with Boston Marathon!</h3>
+            <div class="section2text-container">
+                <hr>
+                <p>Known as the oldest yearly Marathon held in the world, Boston Marathon upholds its prestige and historical significance as one of the world's most prestigious road racing events. Inaugurated in 1897, Boston Marathon has since attracted thousands of runners across the world every year.</p>
+                <p>Let us begin our exploration here, as this is the marathon we Harvard students most likely have stumbled upon on race day.</p>
+                <p>The traditional route for Boston Marathon has long been defined by its start at Hopkinton up to Downtown Boston.</p>
+            </div>
+            <div id="route-map" style="height:500px; width:1250px;"></div>
+            <p style="font-weight:bold;">Let's continue looking, scroll down!</p>
+        </div>
+    </div>
+
+    <div class="section" id="popularityVisSection">
+        <div class="row justify-content-center">
+            <div class="section3intro">
+                <h3 class="title-text2">How has the Marathon grown in popularity over the years?</h3>
+                <hr>
+                <p class="subheader" style="text-align: center;">Adjust the bar to observe the changes in participation trend of the Boston Marathon from 1900 to 2019.</p>
+
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div id="yearRangeSlider" class="custom-slider"></div>
+            <div id="popularity-chart"></div>
+        </div>
+        <div class="row justify-content-center section3-description-row">
+            <div class="section3descriptions1">
+                <p style="font-weight: bold;">Did you notice?</p>
+                <p>Boston Marathon became the first marathon race that officially admitted women runners in 1972!</p>
+                <p>But how about the large spike in 1996? Let's find out! Find below some more interesting facts!</p>
+                <p style="font-weight:bold; margin-top: 20px;">Select a year to see what interesting facts we can find:</p>
+            </div>
+            <div id="fact-vis" class="fact-vis-container"></div>
+        </div>
+    </div>
+
+    <!-- BOSTON 2019 WORLD MAP -->
+    <div class="section" id="worldMapSection1">
+            <!--        <h3>But the Boston Marathon is far from the only major marathon in the world </h3>-->
+            <!--        <h5>In fact, the six "World Major Marathons" across the globe are in Boston, Berlin, New York City, Chicago, New York City, and Tokyo. We see some interesting trends for the top field specifically in Boston 2019, but are these trends that uphold across other marathons? Let's increase our sample size to find out.</h5>-->
+            <!--        <h5>Take a moment to explore the map below to explore who is up front in five of these six marathons!</h5>-->
+            <!--        <text>*Data was not available for the Tokyo Marathon.</text>-->
+            <div class="row">
+                <h2 class="title-text2">What are the Demographics of Boston 2019 Finishers?</h2>
+                <hr>
+                <p class="subheader">Now that we know a bit about the history of the Boston Marathon, let's see who's running it!
+                    Use the map, selection boxes, and donut chart to learn more about finishers from the 2019 Boston Marathon.</p>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <div id="bostonWorldMapDiv" style="height: 85vh; width: 100%;"></div>
+                </div>
+                <div class="col-md-3">
+
+                    <!--                Dropdown for Finisher Type-->
+                    <div class="row">
+                        <h4>Select Finisher Type</h4>
+                        <select id='bostonMapCriteriaSelector' class="btn btn-dark custom-select align-self-center" style="width: 90%" onchange="bostonCriteriaChange()">
+                            <option value="all" selected>All Finishers</option>
+                            <option value="topHundred">Top 100 Finishers</option>
+                            <option value="topThree">Top 3 Finishers</option>
+                            <option value="winner">Winners</option>
+                        </select>
+                    </div>
+
+
+                    <!--                Dropdown for Gender-->
+                    <div class="row">
+                        <h4>Select Sex</h4>
+                        <ul class="map-dropdown">
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" class="btn btn-dark dropdown-toggle" style="width: 90%">Sexes<b class="caret"></b></a>
+                                <ul class="dropdown-menu" style="width: 90%">
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" id="bostonMaleCheckbox" name="male" checked>Male
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" id="bostonFemaleCheckbox" name="female" checked>Female
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <p class="dropdownNote">NOTE: These will only change the map and not the donut chart.</p>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <!--                    Pie Chart-->
+                    <div id="bostonPieChartDiv" style="height: 40vh; width: 90%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- WORLD MAP TRANSITION -->
+<div class="section" id="worldMapTransition">
+    <div class="row h-100">
+        <div class="col-md-12">
+            <div class="d-flex flex-column align-items-center right-column-content">
+                <div class="bostontowmm-transitiontext">
+                    <h3 class="subheader2" style="text-align: center;">But Boston Marathon is only one out of many!</h3>
+                    <br>
+                    <p style="text-align: center;"><strong>So let's explore more Marathons.</strong></p>
+                    <p style="text-align: center;">Now that we have looked at some statistics regarding participants in the Boston Marathon, we can begin comparing within a larger scope!</p>
+                    <p style="text-align: center;">In 2006, a championship style competition for marathon runners known as the <strong>Abbott World Marathon Majors</strong>. It is a competition that consists of six high-profile marathon races around the world:</p>
+                    <ul class="custom-list-btowmm">
+                        <li><strong>Boston</strong> - hosted by Boston Athletic Association</li>
+                        <li><strong>Chicago</strong> - hosted by Bank of America</li>
+                        <li><strong>Berlin</strong> - hosted by BMW</li>
+                        <li><strong>New York</strong> - hosted by Tata Consultancy Services</li>
+                        <li><strong>London</strong> - hosted by Tata Consultancy Services</li>
+                        <li><strong>Tokyo*</strong> - hosted by Tokyo Metro <p style="font-style: italic; font-size: 12px; color: grey;">*discarded in the exploration due to data acquisition difficulties</p></li>
+                    </ul>
+                    <br>
+                    <p style="text-align: center;">Let's explore deeper by bringing together other marathons to observe and compare!</p>
+                    <br>
+                    <p style="text-align: center;">We will move from <strong>Boston Marathon in 2019</strong> to an expanded exploration of <strong>all 5 Marathons</strong> from 2014 - 2023. <strong>Scroll down to explore!</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Overlay Image -->
+    <div class="overlay-image">
+        <img src="img/worldmms2.png">
+    </div>
+</div>
+
+
+<!-- ALL MARATHON WORLD MAP -->
+<div class="section" id="worldMapSection2">
+    <div class="row">
+        <h2 class="title-text2"> What are the Demographics of Top Finishers from these Marathons? </h2>
+        <hr>
+        <p class="subheader">Above we looked into the finishers from Boston in 2019. Now take a chance to look at the top finishers from Boston, Chicago, New York, and London from 2014 to 2023!*</p>
+        <p class="footnote">*Berlin and Tokyo are not included here for data availability reasons. However, their host cities have been included on the map due to their significance as World Majors. Berlin is included in the remaining visualizations.</p>
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+            <div id="mapDiv" style="height: 85vh; width: 100%;"></div>
+        </div>
+        <div class="col-md-3 worldMapButtons">
+
+            <!--                Dropdown for Finisher Type-->
+            <div class="row">
+                <h4>Select Finisher Type</h4>
+                <select id='mapCriteriaSelector' class="btn btn-dark custom-select align-self-center" style="width: 90%" onchange="criteriaChange()">
+                    <option value="topHundred" selected>Top 100 Finishers</option>
+                    <option value="topThree">Top 3 Finishers</option>
+                    <option value="winner">Winners</option>
+                </select>
+            </div>
+
+
+            <!--                Dropdown for Marathon Selection-->
+            <div class="row">
+                <h4 id="map-marathon-title">Select Map Categories</h4>
+                <ul class="map-dropdown">
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="btn btn-dark dropdown-toggle" style="width: 90%" id="marathon-dropdown">Categories<b class="caret"></b></a>
+                        <ul class="dropdown-menu" style="width: 90%">
+                            <li>
+                                <p class="dropdownHeader">Sex</p>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="maleCheckbox" name="male" checked>Male
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="femaleCheckbox" name="female" checked>Female
+                                    </label>
+                                </div>
+                            </li>
+                            <hr>
+                            <li>
+                                <p class="dropdownHeader">Marathon</p>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="bostonCheckbox" checked>Boston
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="nyCheckbox" checked>New York
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chicagoCheckbox" checked>Chicago
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="londonCheckbox" checked>London
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <p class="dropdownNote">NOTE: These will only change the map and not the donut chart.</p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!--                Slider for Year-->
+            <div class="row">
+                <h4 id="map-year-title">Select Years</h4>
+                <div id="mapYearRangeSlider" class="custom-slider" style="width: 90%; "></div>
+            </div>
+
+
+
+            <!--                    Pie Chart-->
+            <div id="pieChartDiv" style="height: 30vh; width: 90%"></div>
+
+            <!--                    Button to Toggle Pie Chart Criteria -->
+            <div class="row">
+                <button class="btn btn-dark align-self-center" type="button" id="pieChartButton"
+                        style="width: 90% !important;"
+                        onclick="updatePieChart()">Show Marathon Breakdown
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- TRANSITION TO STACKED BAR -->
+<div class="section" id="stackedBarTransition">
+
+    <div class="row" style="display: flex; align-items: center; justify-content: center; height: 100vh;">
+        <div class="col-md-5">
+            <div class="images-container">
+                <div class="image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Flag-map_of_Ethiopia.svg/767px-Flag-map_of_Ethiopia.svg.png" alt="Ethiopia Flag" style="width: 25%;">
+                </div>
+                <div class="centered-parag">
+                    <p>As you explored the maps showing the nationalities of our marathon front runners, you may have noticed a particular splash of color in East Africa...</p>
+                    <p>As it turns out, the top end of marathon running is dominated by individuals from <em>Kenya</em> and <em>Ethiopia</em>.</p>
+                    <p>The table on the right lists the male and female winners of the world major marathons from 1991 to 2017. We've marked every <span style="color: red; font-weight: bold;">Kenyan</span> or <span style="color: red; font-weight: bold;">Ethiopian</span> winner in red.</p>
+                    <p>Let's explore this trend further on the next page by quantifying the wins of these countries.</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Flag-map_of_Kenya.svg/471px-Flag-map_of_Kenya.svg.png" alt="Kenya Flag" style="width: 20%;">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="inline-div table-container">
+                <h4>WINNERS</h4>
+                <div id="winnersTable"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!--STACKED BAR-->
+    <div class="section" id="stackedBarSection">
+        <div class="row text-center">
+            <h2 id="stackedBarTitle" class="title-text2">Which Countries Produce the Most Winners?</h2>
+            <hr>
+            <p class="subheader" style="text-align: center;">Wow! Kenya and Ethiopia definitely have a lot of winners in these marathons!
+                But what other countries are up top? Is this a big trend, or just thanks to a few successful individuals? Let's look at data from 2014 to 2023 to find out!</p>
+        </div>
+        <div class="row text-center">
+            <div class="col align-self-center">
+                <!-- Stacked Bar Chart -->
+                <button class="btn btn-dark align-self-center" type="button" id="stackedBarUpdateButton" style="width: 90% !important;"
+                        onclick="updateStackedBar()">Toggle to Top 3 Finishers
+                </button>
+            </div>
+            <div class="col">
+                <div id="stackedBarLegend" style="height: 3vh; width: 90%;"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="stackedBar" style="height: 71vh; width: 100%;"></div>
+        </div>
+    </div>
+
+
+<!--TRANSITION TO NETWORK VIS-->
+<div class="section" id="networkVisTransition">
+
+    <div class="row" style="display: flex; align-items: center; justify-content: center; height: 100vh;">
+        <div class="col-md-7">
+            <div class="images-container">
+                <div class="image-wrapper">
+                    <img src="https://i.guim.co.uk/img/media/c9fe7c01af65f8a1e236cf205522edd2803110fb/0_20_3504_2102/master/3504.jpg?width=1300&dpr=1&s=none" alt="Ethiopian runners" style="width: 100%; margin-left: -10vw;">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="centered-parag">
+                <p>As you've seen, the dominance of East African runners is undeniable and unchallenged. <em>But why are they so much better?</em></p>
+                <p>There is no definitive answer, but some theories suggest that genetic predisposition to biomechanical efficiency, a lifetime of barefoot running, a high carb and low fat diet, and training in their high altitude environment could all contribute to their success in the marathoning world.</p>
+                <p>This question is so pondered that much academic research exists hoping to reveal the key factors. Click below to view one such study:</p>
+                <a href="https://pubmed.ncbi.nlm.nih.gov/22634972/" target="_blank" class="research-link">Wilbur & Pitsiladis, 2012</a>
+                <p>In the next two pages, let's expand our exploration to view all the top performers at world marathons: how well they did, how well their countries were represented, and where they fall in the pack across the years.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- NETWORK VIS -->
+<div class="section" id="networkVisSection">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="title-text2">Where do runners come from and how did they perform in different Marathons?</h3>
+            <hr>
+            <p class="subheader" style="text-align: center;">Explore the demographics and performance of each marathon further by looking at data from 2014 to 2023, try dragging the marathon nodes to group the countries that participated or select the buttons below to filter by Marathon and reveal the overall top performers!</p>
+        </div>
+        <div class="col-md-12">
+            <div id="network-vis"></div>
+            <div class="top10button">
+                <button id="showTop10Button" style="display: none;">Click to See Top Performers</button>
+            </div>
+            <div id="marathonButtons" class="button-container">
+                <p style="font-weight:bold; text-align:center; margin-bottom: 15px; margin-top: 15px;">Click a Marathon:</p>
+                <div class="marathon-button selected" data-marathon="all" style="background-color: #999;">All</div>
+                <div class="marathon-button" data-marathon="Boston" style="background-color: #8dae86;">BOS</div>
+                <div class="marathon-button" data-marathon="London" style="background-color: #ae9b86;">LON</div>
+                <div class="marathon-button" data-marathon="Chicago" style="background-color: #9886ae;">CHI</div>
+                <div class="marathon-button" data-marathon="Berlin" style="background-color: #81a3b3;">BER</div>
+                <div class="marathon-button" data-marathon="New York" style="background-color: #ae8692;">NY</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DOT VIS-->
+<div class="section" id="dotVisSection">
+    <div class="row text-center">
+        <h3 class="title-text2">Where in the pack do front runners fall?</h3>
+        <hr>
+        <p class="subheader" style="text-align: center;">Explore the top 100 runners at each world major marathon from 2014 to 2023. Each dot represents a runner (hover to view more details), with the fastest finishers at the left, and slower at the right.</p>
+        <p class="subheader" style="text-align: center;">Highlight by nationality to see where a particular country's runners fall within the pack, or highlight individuals from the respective marathon's host country to see how local runners fare.</p>
+
+    </div>
+    <div class="row">
+        <div id="dotDiv" style="height: 60vh"></div>
+    </div>
+    <div class="row dot-selectors">
+        <!-- filter area -->
+        <div class="inline-div" style="width: 500px; height: 50px; margin: 10px;">
+            <!-- y-axis attribute dropdown selector -->
+            <h4 class="subheader2">Nationality of runners highlighted:</h4>
+            <select id="attribute-selector" class="btn btn-light custom-select align-self-center" style="width: 90%">
+                <option value="none" style="background-color: white;"selected>None</option>
+                <option value="host" style="font-weight: bold">Host Country</option>
+                <option value="KEN">Kenya</option>
+                <option value="ETH">Ethiopia</option>
+                <option value="USA" style="background-color: #e7f8e7;">United States of America</option>
+                <option value="GBR" style="background-color: #e9e8d2;">United Kingdom</option>
+                <option value="DEU" style="background-color: #d4e5f0;">Germany</option>
+                <option value="JPN">Japan</option>
+                <option value="ALB">Albania</option>
+                <option value="DZA">Algeria</option>
+                <option value="AND">Andorra</option>
+                <option value="AGO">Angola</option>
+                <option value="ATG">Antigua and Barbuda</option>
+                <option value="ARM">Armenia</option>
+                <option value="AUT">Austria</option>
+                <option value="AZE">Azerbaijan</option>
+                <option value="BHR">Bahrain</option>
+                <option value="BGD">Bangladesh</option>
+                <option value="BLR">Belarus</option>
+                <option value="BLZ">Belize</option>
+                <option value="BTN">Bhutan</option>
+                <option value="BOL">Bolivia</option>
+                <option value="BIH">Bosnia and Herzegovina</option>
+                <option value="BWA">Botswana</option>
+                <option value="BRN">Brunei</option>
+                <option value="BGR">Bulgaria</option>
+                <option value="BFA">Burkina Faso</option>
+                <option value="BDI">Burundi</option>
+                <option value="KHM">Cambodia</option>
+                <option value="CMR">Cameroon</option>
+                <option value="CPV">Cape Verde</option>
+                <option value="CAF">Central African Republic</option>
+                <option value="TCD">Chad</option>
+                <option value="CHL">Chile</option>
+                <option value="COL">Colombia</option>
+                <option value="COM">Comoros</option>
+                <option value="COG">Congo</option>
+                <option value="CRI">Costa Rica</option>
+                <option value="HRV">Croatia</option>
+                <option value="CUB">Cuba</option>
+                <option value="CYP">Cyprus</option>
+                <option value="CZE">Czech Republic</option>
+                <option value="PRK">North Korea</option>
+                <option value="COD">DR Congo</option>
+                <option value="DNK">Denmark</option>
+                <option value="DJI">Djibouti</option>
+                <option value="DOM">Dominican Republic</option>
+                <option value="TLS">East Timor</option>
+                <option value="ECU">Ecuador</option>
+                <option value="EGY">Egypt</option>
+                <option value="SLV">El Salvador</option>
+                <option value="GNQ">Equatorial Guinea</option>
+                <option value="ERI">Eritrea</option>
+                <option value="EST">Estonia</option>
+                <option value="SWZ">Eswatini</option>
+                <option value="FJI">Fiji</option>
+                <option value="FIN">Finland</option>
+                <option value="GAB">Gabon</option>
+                <option value="GMB">Gambia</option>
+                <option value="GEO">Georgia</option>
+                <option value="GHA">Ghana</option>
+                <option value="GRC">Greece</option>
+                <option value="GRD">Grenada</option>
+                <option value="GTM">Guatemala</option>
+                <option value="GIN">Guinea</option>
+                <option value="GNB">Guinea-Bissau</option>
+                <option value="GUY">Guyana</option>
+                <option value="HTI">Haiti</option>
+                <option value="HND">Honduras</option>
+                <option value="HUN">Hungary</option>
+                <option value="ISL">Iceland</option>
+                <option value="IND">India</option>
+                <option value="IDN">Indonesia</option>
+                <option value="IRN">Iran</option>
+                <option value="IRQ">Iraq</option>
+                <option value="IRL">Ireland</option>
+                <option value="ISR">Israel</option>
+                <option value="ITA">Italy</option>
+                <option value="CIV">Ivory Coast</option>
+                <option value="JAM">Jamaica</option>
+                <option value="JOR">Jordan</option>
+                <option value="KAZ">Kazakhstan</option>
+                <option value="KIR">Kiribati</option>
+                <option value="KWT">Kuwait</option>
+                <option value="KGZ">Kyrgyzstan</option>
+                <option value="LAO">Laos</option>
+                <option value="LVA">Latvia</option>
+                <option value="LBN">Lebanon</option>
+                <option value="LSO">Lesotho</option>
+                <option value="LBR">Liberia</option>
+                <option value="LBY">Libya</option>
+                <option value="LIE">Liechtenstein</option>
+                <option value="LTU">Lithuania</option>
+                <option value="LUX">Luxembourg</option>
+                <option value="MDG">Madagascar</option>
+                <option value="MWI">Malawi</option>
+                <option value="MYS">Malaysia</option>
+                <option value="MDV">Maldives</option>
+                <option value="MLI">Mali</option>
+                <option value="MLT">Malta</option>
+                <option value="MHL">Marshall Islands</option>
+                <option value="MRT">Mauritania</option>
+                <option value="MUS">Mauritius</option>
+                <option value="MEX">Mexico</option>
+                <option value="FSM">Micronesia</option>
+                <option value="MDA">Moldova</option>
+                <option value="MCO">Monaco</option>
+                <option value="MNG">Mongolia</option>
+                <option value="MNE">Montenegro</option>
+                <option value="MAR">Morocco</option>
+                <option value="MOZ">Mozambique</option>
+                <option value="MMR">Myanmar</option>
+                <option value="NAM">Namibia</option>
+                <option value="NRU">Nauru</option>
+                <option value="NPL">Nepal</option>
+                <option value="NLD">Netherlands</option>
+                <option value="NZL">New Zealand</option>
+                <option value="NIC">Nicaragua</option>
+                <option value="NER">Niger</option>
+                <option value="NGA">Nigeria</option>
+                <option value="NIU">Niue</option>
+                <option value="PRK">North Korea</option>
+                <option value="MKD">North Macedonia</option>
+                <option value="NOR">Norway</option>
+                <option value="OMN">Oman</option>
+                <option value="PAK">Pakistan</option>
+                <option value="PLW">Palau</option>
+                <option value="PAN">Panama</option>
+                <option value="PNG">Papua New Guinea</option>
+                <option value="PRY">Paraguay</option>
+                <option value="PER">Peru</option>
+                <option value="PHL">Philippines</option>
+                <option value="POL">Poland</option>
+                <option value="PRT">Portugal</option>
+                <option value="QAT">Qatar</option>
+                <option value="ROU">Romania</option>
+                <option value="RUS">Russia</option>
+                <option value="RWA">Rwanda</option>
+                <option value="KNA">Saint Kitts and Nevis</option>
+                <option value="LCA">Saint Lucia</option>
+                <option value="VCT">Saint Vincent and the Grenadines</option>
+                <option value="WSM">Samoa</option>
+                <option value="SMR">San Marino</option>
+                <option value="STP">Sao Tome and Principe</option>
+                <option value="SAU">Saudi Arabia</option>
+                <option value="SEN">Senegal</option>
+                <option value="SRB">Serbia</option>
+                <option value="SYC">Seychelles</option>
+                <option value="SLE">Sierra Leone</option>
+                <option value="SGP">Singapore</option>
+                <option value="SVK">Slovakia</option>
+                <option value="SVN">Slovenia</option>
+                <option value="SLB">Solomon Islands</option>
+                <option value="SOM">Somalia</option>
+                <option value="ZAF">South Africa</option>
+                <option value="KOR">South Korea</option>
+                <option value="SSD">South Sudan</option>
+                <option value="ESP">Spain</option>
+                <option value="LKA">Sri Lanka</option>
+                <option value="SDN">Sudan</option>
+                <option value="SUR">Suriname</option>
+                <option value="SWE">Sweden</option>
+                <option value="CHE">Switzerland</option>
+                <option value="SYR">Syria</option>
+                <option value="TJK">Tajikistan</option>
+                <option value="TZA">Tanzania</option>
+                <option value="THA">Thailand</option>
+                <option value="TGO">Togo</option>
+                <option value="TON">Tonga</option>
+                <option value="TTO">Trinidad and Tobago</option>
+                <option value="TUN">Tunisia</option>
+                <option value="TUR">Turkey</option>
+                <option value="TKM">Turkmenistan</option>
+                <option value="TUV">Tuvalu</option>
+                <option value="UGA">Uganda</option>
+                <option value="UKR">Ukraine</option>
+                <option value="ARE">United Arab Emirates</option>
+                <option value="URY">Uruguay</option>
+                <option value="UZB">Uzbekistan</option>
+                <option value="VUT">Vanuatu</option>
+                <option value="VEN">Venezuela</option>
+                <option value="VNM">Vietnam</option>
+                <option value="YEM">Yemen</option>
+                <option value="ZMB">Zambia</option>
+                <option value="ZWE">Zimbabwe</option>
+            </select>
+            <p style="font-size: 11px;">*In certain years of certain marathons, nationality was not tracked for each individual.</p>
+        </div>
+
+        <div class="inline-div" style="width: 500px; height: 50px; margin: 10px;">
+            <!-- year range slider -->
+            <h4 class="subheader2">Year:</h4>
+            <div id="dotSlider"></div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- CONCLUSION -->
+<div class="section" id="conclusion">
+
+    <div class="row" style="height: 50vh; display: flex; justify-content: center; align-items: center; margin: 0px;">
+        <img src="https://static01.nyt.com/images/2020/05/28/sports/28boston-marathon/merlin_170462463_dc158e56-d218-4586-9be6-970e6ec2cd8b-jumbo.jpg?quality=75&auto=webp&disable=upscale" alt="Boston Marathon" style="width: 50%; height: 100%; object-fit: cover; object-position: bottom;">
+    </div>
+
+    <div class="row" style="height: 50vh;">
+        <div class="centered-parag" style="max-width: 700px;">
+            <p>And with that, we've reached the <span style="color: navy; font-weight: bold;">finish line</span> of our marathon exploration.</p>
+            <p>We've taken a close look at our local Boston marathon, and expanded to consider several of the most famed world marathons. We investigated demographic data across marathons and years, observing the emergence of dominant countries in the sport. And finally, we surveyed the world-class individuals that finish races fastest: who they are, where they're from, and where they fall in the pack.</p>
+            <p>Thanks for running alongside us on this data journey. We hope you learned a thing or two about the wonderful world of running 26.2 miles, and hope that—if you have any aspiration to do so—you might one day complete the physical journey yourself. </p>
+            <br>
+            <p style="font-size: 12px; color: grey;">— Sang Won Kang, Mr. Benjamin Russell Hartvigsen, Julian Li</p>
+        </div>
+    </div>
+
+</div>
+
+<!--    Scroll dots-->
+    <div id="navigation">
+        <div class="circle" data-target="#titleSection"></div>
+        <div class="circle" data-target="#section2"></div>
+        <div class="circle" data-target="#popularityVisSection"></div>
+        <div class="circle" data-target="#worldMapSection1"></div>
+        <div class="circle" data-target="#worldMapTransition"></div>
+        <div class="circle" data-target="#worldMapSection2"></div>
+        <div class="circle" data-target="#stackedBarTransition"></div>
+        <div class="circle" data-target="#stackedBarSection"></div>
+        <div class="circle" data-target="#networkVisTransition"></div>
+        <div class="circle" data-target="#networkVisSection"></div>
+        <div class="circle" data-target="#dotVisSection"></div>
+        <div class="circle" data-target="#conclusion"></div>
+    </div>
+
+</div>
+
+
+<!-- - - - - - - - - - - - >
+<    Load JS libraries     >
+<- - - - - - - - - - - - -->
+
+<!-- BOOTSTRAP -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.4.0/nouislider.min.js"
+        integrity="sha512-mZXUH8DAODwCHioWP3gltQwa953LbABMlzTYwYkKqv8eNxOk37B1HgNNuCMfFxgrpW5C34WJbxPDcM58+s1dJA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- d3 -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<script src="https://d3js.org/d3-array.v2.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/topojson.v2.min.js"></script>
+<script src="https://d3js.org/d3-geo.v1.min.js"></script>
+
+<!-- OWN JS -->
+<script src="js/scroll.js"></script>
+<script src="js/mapVis.js"></script>
+<script src="js/pieChart.js"></script>
+<script src="js/stackedBar.js"></script>
+<script src="js/networkVis.js"></script>
+<script src="js/marathonMapVis.js"></script>
+<script src="js/popularityVis.js"></script>
+<script src="js/dotVis.js"></script>
+<script src="js/sangHelpers.js"></script>
+<script src="js/factVis.js"></script>
+<script src="js/main.js"></script>
+<script src="js/winnerTable.js"></script>
+<script src="js/mapAndPieHelpers.js"></script>
+<script src="js/sliders.js"></script>
+</body>
+</html>

@@ -1,0 +1,699 @@
+.mapTooltip, .barTooltip {
+    position: absolute;
+    text-align: center;
+    font: 12px sans-serif;
+    /*  pointer-events: none;	This line needs to be removed */
+}
+.tooltip h3,h4 {
+    text-align: left;
+}
+.tooltip h4 {
+    font: 14px sans-serif;
+}
+
+/****************/
+/*  leaflet map */
+/****************/
+
+.city-label-tooltip {
+    background-color: #F7F5CC !important;
+    border-radius: 6px !important;
+    color: #053F1F !important;
+    font-weight: bold;
+    font-size: 10px;
+    padding: 4px 6px;
+    text-align: center;
+}
+
+.connection {
+    stroke: black;
+    stroke-dasharray: 5;
+    stroke-width: 3px;
+    opacity: 0.7;
+}
+
+.selectpicker {
+    padding: 10px;
+}
+
+.node-text {
+    font-family: 'Arial', sans-serif;
+    fill: #333;
+}
+
+.my-non-svg-elements {
+    transform-origin: 0px 0px;
+}
+
+.marathon-text {
+    font-weight: bold;
+    font-size: 12px;
+    fill: #555;
+}
+
+.country-text {
+    font-weight: bold;
+    font-size: 9px;
+    fill: #777;
+}
+
+.subheader {
+    font-size: 14px;
+    font-family: sans-serif;
+    text-align: center;
+    font-weight: bold;
+}
+
+.subheader2 {
+    font-size: 22px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.title-text {
+    font-family: sans-serif;
+    font-size: 100px;
+    letter-spacing: 15px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.title-text, .intro-description, .scroll-text p {
+    color: rgb(38, 80, 115);
+    -webkit-text-stroke: 0.5px black;
+}
+
+.title-text2 {
+    color: rgb(38, 80, 115);
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    -webkit-text-stroke: 0.5px black;
+}
+
+#section2 {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    text-align: center;
+}
+
+.section2text-container {
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+.section3intro {
+    text-align: center;
+}
+
+.section3-description-row {
+    height: 25vh;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+#popularityVisSection {
+    height: 100vh;
+}
+
+.section3descriptions1 {
+    font-size: 0.85em; /* Reduce font size if necessary */
+    line-height: 1.2;
+    text-align: center;
+}
+
+.row {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+input, select {
+    width: 150px;
+    box-sizing: border-box;
+}
+
+#dotDiv {
+    height: 20rem;
+    width: 100%;
+}
+
+.inline-div {
+    display: inline-block;
+}
+
+
+/****************/
+/*    SLIDER    */
+/****************/
+
+#time-period-slider {
+    width: 200px;
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.range-slider-value {
+    background-color: #EFE9E9;
+    color: #888;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding: 2px 10px;
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.noUi-connect {
+    background: teal;
+}
+
+/* Important: Scroll Functionality for web */
+
+#navigation {
+    position: fixed;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10000; /* Increased z-index */
+}
+
+.circle {
+    width: 10px;
+    height: 10px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    background-color: grey;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+    position: relative;
+    left: 50%;
+}
+
+.circle.active {
+    width: 15px;
+    height: 15px;
+    margin-bottom: 20px;
+    background-color: rgb(38, 80, 115);
+    transform: translateX(-50%) translateY(-2.5px);
+}
+
+.section {
+    height: 100vh;
+    overflow: hidden;
+}
+
+#section1 {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.background-gif {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../img/marathonanimation.gif') no-repeat center center;
+    background-size: cover;
+    opacity: 0.4;
+    z-index: -1;
+}
+
+#section1 .text-center {
+    width: 100%;
+    padding: 0 20px;
+}
+
+.intro-description {
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 30px;
+    font-size: 23px;
+    color: rgb(38, 80, 115);
+}
+
+.scroll-text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 70px;
+    text-align: center;
+    color: #ED702A;
+    z-index: 2;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent overall page scroll */
+}
+
+#popularity-chart {
+    height: 35vh;
+}
+
+#fact-vis {
+    height: 35vh;
+    margin-top: -40px;
+}
+
+.time-back-button-rect {
+    fill: #999;
+}
+
+.time-back-button-text {
+    fill: white;
+    font-size: 16px;
+    pointer-events: none;
+}
+
+.tooltip-temp {
+    background-color: #2D6E5B;
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid black;
+    overflow-y: auto;
+}
+
+.tooltip {
+    position: absolute;
+    text-align: left;
+    width: 120px;
+    height: 50px;
+    padding: 4px;
+    font: 14px sans-serif;
+    font-weight: bold;
+    background: #F7F5CC;
+    border: 2px solid #354d5f; /* Replace 'your-border-color' with your desired color */
+    border-radius: 8px;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.legend-label {
+    font-size: 13px;
+    font-family: sans-serif;
+    font-weight: lighter;
+}
+
+#route-map {
+    margin-top: 40px;
+    margin-bottom: 60px;
+}
+
+#yearRangeSlider.custom-slider .noUi-connect {
+    background: #b8c7c4;
+    width: 100%; /* Adjust the width as needed */
+}
+
+#yearRangeSlider.custom-slider {
+    width: 50%;
+    margin: 0 auto;
+}
+
+/* Style for the marathon buttons container */
+.button-container {
+    text-align: center; /* Center the buttons horizontally */
+}
+
+/* Style for the marathon buttons (circles) */
+.marathon-button {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+    margin-left: 45px;
+    margin-right: 45px;
+    font-weight: bold;
+    font-size: 14px;
+    vertical-align: middle;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    transform-origin: center;
+}
+
+/* Style for the selected button */
+.marathon-button.selected {
+    transform: scale(1.5);
+}
+
+#showTop10Button {
+    display: block;
+    margin: 1px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #62807e;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#showTop10Button:hover {
+    background-color: #324241;
+}
+
+#showTop10Button:active {
+    background-color: #455b5a;
+}
+
+#showTop10Button:focus {
+    outline: none;
+}
+
+#intro-gif {
+    width: 95%;
+    height: 50rem;
+    padding: 10px;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    z-index: 100000;
+}
+
+#dotDiv {
+    height: 50rem;
+    width: 100%;
+}
+
+.country.highlighted {
+    fill: #FD941C;
+}
+
+.bar-label {
+    font-weight: bold;
+}
+
+#mapDivTitle {
+    text-align: center;
+}
+
+.largeTooltip {
+    position: absolute;
+    text-align: left;
+    width: 200px;
+    height: 180px;
+    padding: 4px;
+    font: 14px sans-serif;
+    font-weight: bold;
+    background: #F7F5CC;
+    border: 2px solid #354d5f; /* Replace 'your-border-color' with your desired color */
+    border-radius: 8px;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.largerTooltip {
+    position: absolute;
+    text-align: left;
+    width: 200px;
+    height: 225px;
+    padding: 4px;
+    font: 14px sans-serif;
+    font-weight: bold;
+    background: #F7F5CC;
+    border: 2px solid #354d5f; /* Replace 'your-border-color' with your desired color */
+    border-radius: 8px;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul.map-dropdown {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#mapYearRangeSlider.custom-slider .noUi-tooltip {
+    top: 120%;
+    /*padding-top: 1vh;*/
+    padding-bottom: 3vh;
+    /*transform: translateY(50px);*/
+}
+
+#mapYearRangeSlider.custom-slider .noUi-connect {
+    background: #b8c7c4;
+}
+
+.stackedBarAxisLabel {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.stackedBarLegendLabel {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.dot-selectors {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn-light {
+    background-color: lightgrey;
+    color: #354d5f;
+    border-color: #354d5f;
+}
+
+#dotSlider .noUi-handle {
+    background-color: grey;
+    border: 2px solid darkgray;
+    border-radius: 5px;
+}
+
+#dotSlider .noUi-handle:hover {
+    background-color: #333;
+}
+
+
+.dot-tooltip {
+    position: absolute;
+    text-align: center;
+    font: 12px sans-serif;
+    border: thin solid grey;
+    border-radius: 5px;
+    background: lightgrey;
+    padding: 20px
+    /*  pointer-events: none;	This line needs to be removed */
+}
+.dot-tooltip h3,h4 {
+    text-align: left;
+}
+.dot-tooltip h4 {
+    font: 14px sans-serif;
+}
+
+.bostontowmm-transitiontext {
+    font-size: 16px;
+    margin-right: 40px;
+    max-width: 650px;
+    height: 75vh;
+}
+
+#worldMapTransition {
+    position: relative;
+}
+
+.right-column-content {
+    background-color: rgba(255, 255, 255, 0.8); /
+    padding: 20px;
+}
+
+.overlay-image {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.overlay-image img {
+    width: 100%;
+    height: auto;
+}
+
+ul.custom-list-btowmm li {
+    margin-bottom: 10px;
+}
+
+
+.table-container {
+    max-width: 1000px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the container */
+    padding: 0 15px; /* Add some padding for spacing */
+}
+
+.table-smaller {
+    font-size: 7px;
+    width: 100%; /* Ensure the table takes the full width of the container */
+    border-collapse: collapse; /* Collapse table borders */
+    font-family: 'Noto Color Emoji', sans-serif;
+}
+
+.table-smaller th,
+.table-smaller td {
+    border: none; /* Remove table cell borders */
+    padding: 4px; /* Adjust cell padding */
+}
+
+.table-smaller th {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.table-smaller td:first-child {
+    padding-right: 20px; /* Adjust the value as needed */
+    font-size: 10px;
+}
+
+.centered-parag {
+    padding: 50px;
+    margin: 0 auto;
+    max-width: 500px;
+    font-size: 16px;
+}
+
+.col-md-6 {
+    display: flex; /* Use flexbox for the column */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+}
+
+.images-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.image-wrapper {
+    margin-bottom: 20px; /* Add space between images and text */
+    text-align: center;
+}
+
+.image-wrapper img {
+    max-width: 100%; /* Ensure the image fits its container */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.research-link {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background-color: rgb(38, 80, 115);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.research-link:hover {
+    background-color: rgb(90, 138, 173);
+    color: white;
+}
+
+#networkVisSection {
+    height: 100vh;
+}
+
+#network-vis {
+    height: 65vh;
+}
+
+#marathonButtons {
+    margin-top: 40px;
+}
+
+#mapYearRangeSlider {
+    margin-bottom: 5vh;
+}
+
+.worldMapButtons {
+    padding-right: 5vh;
+}
+
+.dropdownHeader {
+    text-align: center;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#pieChartTitle {
+    text-align: center;
+    text-anchor: middle;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+#pieChartDiv {
+    margin-top: 3vh;
+    margin-bottom: -1.5vh;
+}
+
+.pieChartCenterInfo {
+    text-align: center;
+}
+
+.pieChartData {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.pieChartDataLabel {
+    font-weight: bold;
+    font-size: 0.6em;
+}
+
+#pieChartButton {
+    margin-top: -2vh;
+}
+
+.dropdownNote {
+    font-size: 0.6em;
+    font-style: italic;
+    fill: grey;
+    margin-left: 0.3vh;
+    margin-right: 0.3vh;
+    margin-top: 1.4vh;
+    margin-bottom: -0.3vh;
+}
+
+#bostonPieChartDiv {
+    margin-top: 10vh;
+}
+
+.worldMapMarker {
+    stroke: gold;
+    stroke-width: 0.1vh;
+}
+
+.footnote {
+    font-size: 0.6em;
+    font-style: italic;
+    fill: grey;
+    text-align: center;
+    margin-top: -0.7vh;
+}
