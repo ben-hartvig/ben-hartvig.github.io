@@ -34,9 +34,9 @@ NoUISlider - Creation of the various sliders across the project
 
 ### CODE RESPONSIBILITIES ###
 While there was collaboration throughout every aspect of the project, the following members was primarily responsible for the following files
-Collaborative: index.html, main.js, styles.css
-Ben: mapVis.js, pieChart.js, stackedBar.js, checkboxListeners.js
-Sang: factVis.js, marathonMapVis.js, networkVis.js, popularityVis.js, scroll.js
+Collaborative: index.html, main.js, styles.css, sliders.js
+Ben: mapVis.js, pieChart.js, stackedBar.js, checkboxListeners.js, mapAndPieHelpers.js
+Sang: factVis.js, marathonMapVis.js, networkVis.js, popularityVis.js, scroll.js, sangHelpers.js
 Julian: dotVis.js, winnersTable.js
 
 ### OVERVIEW ###
